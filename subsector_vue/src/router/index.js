@@ -6,7 +6,7 @@ import Residential from "@/views/Residential"
 
 const routes = [
   {
-    path: '/',
+    path: '/industrial',
     name: 'industrial',
     component: Industrial
   },

@@ -6,6 +6,6 @@ import axios from 'axios'
 
 import './assets/main.css'
 
-axios.defaults.baseURL = 'http//172.0.0.1:8000'
+axios.defaults.baseURL = 'https://sector-rick2.azurewebsites.net'
 
 createApp(App).use(store).use(router, axios).mount('#app')

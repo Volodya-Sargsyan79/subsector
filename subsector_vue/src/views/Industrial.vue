@@ -4,20 +4,23 @@
   </div>
 </template>
   
-<script>  
-  import { defineProps, computed } from "vue";
-
-  const props = defineProps({
-    data: Object,
-    allCategory: Object,
-    type: String,
-  });
-
-  const allCategory = computed(() => props.allCategory);
-  const allCategoryItems = computed(() => allCategory.value.items);
+<script>
+  import { computed } from "vue";
+  import { useStore } from 'vuex';
 
   export default {
     name: 'Industrial',
+    setup() {
+      const store = useStore();
+      const subsectorsData = computed(() => store.getters.getSubsectorsData);
+
+      // Dispatch the action to fetch API data when the component is created
+      store.dispatch('fetchSectorsData', "18ff4730-d8c2-4ce2-a3e2-cb2ad7ce6675");
+
+      return {
+        subsectorsData
+      };
+    },
   }
 </script>
   

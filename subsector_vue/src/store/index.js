@@ -1,67 +1,42 @@
-import { createStore } from 'vuex'
+import axios from "axios";
+import { createStore } from 'vuex';
 
-export default createStore({
+const store = createStore({
   state: {
-    user: {
-      username: ''
-    },
-    isAuthenticated: false,
-    token: '',
-    allCategory: [],
+    sectorsData: null,
+    subsectorsData: null,
   },
   getters: {
-    
-    getAllCategory: (state) => state.allCategory,
+    getSectorsData: (state) => state.sectorsData,
+    getSubsectorsData: (state) => state.subsectorsData,
   },
   mutations: {
-    initializeStore(state) {
-      if (localStorage.getItem('token')) {
-        state.token = localStorage.getItem('token')
-        state.isAuthenticated = true
-      } else {
-        state.token = '',
-        state.isAuthenticated = false
-      }
+    setSectorsData(state, data) {
+      state.sectorsData = data;
     },
-    setToken(state, token) {
-      state.token = token
-      state.isAuthenticated = true
-    },
-    removeToken(state) {
-      state.token = ''
-      state.isAuthenticated = false
-    },
-    allCategory: (state, data) => {
-      
-      if (data.errorMessage) {
-        state.allCategoryErrorMessage = data.errorMessage;
-      } else if (data.index == null) {
-        state.allCategory = data;
-      } else {
-        state.allCategory.items[data.index].parentData = data;
-      }
+    setSubsectorsData(state, data) {
+      state.sectorsData = data;
     },
   },
   actions: {
-    allCategory() {
-      get('/api/categories')
-        .then(async (response) => {
-          if (response.status == 200) {
-            let allCategoryData = await response.data;
-            allCategoryData.index = null;
-            commit("allCategory", allCategoryData);
-          } else {
-            let dataError = {};
-            dataError.errorMessage = response.response.data.message;
-            commit("allCategory", dataError);
-          }
-        })
-        .catch((err) => {
-          console.log("err", err);
-        })
+    async fetchSectorsData({ commit }) {
+      try {
+        const response = await axios.get('/sectors');
+        commit('setSectorsData', response.data);
+      } catch (error) {
+        console.error('Error fetching API data:', error);
+      }
+    },
+    async fetchSectorsData({ commit }, sectorId) {
+      console.log(sectorId);
+      try {
+        const response = await axios.get(`/sector/${sectorId}/subsectors`);
+        commit('setSubsectorsData', response.data);
+      } catch (error) {
+        console.error('Error fetching API data:', error);
+      }
     },
   },
-  modules: {
-    
-  }
-})
+});
+
+export default store;
