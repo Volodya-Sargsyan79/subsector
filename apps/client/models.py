@@ -5,13 +5,14 @@ from django.db import models
 class Category(models.Model):
     title = models.CharField(max_length=15)
     slug = models.SlugField(max_length=15)
+    ordering = models.IntegerField(default=0)
 
     class Meta:
         db_table = ''
         managed = True
         verbose_name = 'Categories'
         verbose_name_plural = 'Categories'
-        ordering = ('title',)
+        ordering = ('ordering',)
 
     def __str__(self):
         return self.title
