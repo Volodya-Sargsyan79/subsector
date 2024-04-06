@@ -25,7 +25,9 @@
           <td class="border-x text-white border-gray-600 py-3 px-3">{{ subsector.name }}</td>
           <td class="border-x text-white border-gray-600 py-3 px-3">{{ subsector.weightingType }}</td>
           <td class="border-x border-gray-600 py-3 px-3 flex gap-x-3">
-            <button class="rounded-md bg-blue-500 text-gray-300 hover:bg-blue-600 transition px-4 py-2 w-fit">
+            <button 
+              class="rounded-md bg-blue-500 text-gray-300 hover:bg-blue-600 transition px-4 py-2 w-fit"
+              @click="editSubsector(subsector.sectorId)">
               <span class="text-gray-300"> ✎ </span>
               Edit
             </button>
@@ -65,6 +67,9 @@ export default {
     onDeleteSubsector(subsectorId) {
       // Call deleteSubsector prop function with subsectorId argument
       this.deleteSubsector(subsectorId);
+    },
+    editSubsector(id) {
+      this.$router.push('/subsector/edit', id);
     }
   }
 }
