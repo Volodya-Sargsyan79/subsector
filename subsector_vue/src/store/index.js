@@ -15,7 +15,10 @@ const store = createStore({
       state.sectorsData = data;
     },
     setSubsectorsData(state, data) {
-      state.sectorsData = data;
+      state.subsectorsData = data;
+    },
+    setDeleteSubsectors(state, data) {
+      state.subsectorsData = data;
     },
   },
   actions: {
@@ -27,11 +30,18 @@ const store = createStore({
         console.error('Error fetching API data:', error);
       }
     },
-    async fetchSectorsData({ commit }, sectorId) {
-      console.log(sectorId);
+    async fetchSubsectorsData({ commit }, sectorId) {
       try {
         const response = await axios.get(`/sector/${sectorId}/subsectors`);
         commit('setSubsectorsData', response.data);
+      } catch (error) {
+        console.error('Error fetching API data:', error);
+      }
+    },
+    async fetchDeleteSubsector({ commit }, subsectorsID) {
+      try {
+        const response = await axios.delete(`/subsectors/${subsectorsID}`);
+        commit('setDeleteSubsectors', response.data);
       } catch (error) {
         console.error('Error fetching API data:', error);
       }

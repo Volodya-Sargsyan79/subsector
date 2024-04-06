@@ -3,8 +3,10 @@
     <nav class="navbar bg-neutral-800 border-b border-gray-600">
       <div class="navbar-brand">
           <router-link
-            v-for="sector in sectorsData" :key="sector.id" 
-            :to="sector.name.toLowerCase()" 
+            v-for="sector in sectors" 
+            :key="sector.id" 
+            :to="sector.name.toLowerCase()"
+            @click="getSubsectorsData(sector.id)"
             class="text-white router-link-active router-link-exact-active transition py-4 px-6 cursor-pointer hover:bg-neutral-700" 
             :class="{ 'router-link-active router-link-exact-active border-b-4  border-blue-500 bg-neutral-700': $route.path === '/'+sector.name.toLowerCase() }">
               <strong>{{ sector.name }}</strong>
@@ -13,7 +15,7 @@
     </nav>
   </main>
   <section class="section bg-neutral-800">
-      <router-view/>
+      <router-view :subsectors="subsectors" :deleteSubsector="deleteSubsector"></router-view>
   </section>
 
   <footer class="footer w-full min-h-screen gap-x-8 bg-neutral-800 text-gray-300 pb-10">
@@ -29,13 +31,24 @@ export default {
   name: 'App',
   setup() {
     const store = useStore();
-    const sectorsData = computed(() => store.getters.getSectorsData);
+    const sectors = computed(() => store.getters.getSectorsData);
+    const subsectors = computed(() => store.getters.getSubsectorsData);
+ 
+    const getSubsectorsData = (id) => {
+      store.dispatch('fetchSubsectorsData', id);
+    }
+    
+    const deleteSubsector = (subsectorId) => {
+      store.dispatch('fetchDeleteSubsector', subsectorId);
+    }
 
-    // Dispatch the action to fetch API data when the component is created
     store.dispatch('fetchSectorsData');
-
+    
     return {
-      sectorsData
+      sectors,
+      subsectors,
+      getSubsectorsData,
+      deleteSubsector
     };
   },
 }
