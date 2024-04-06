@@ -8,7 +8,7 @@
           <td class="p-3 flex justify-end">
             <button class="rounded-md bg-gray-600 text-gray-300 hover:bg-gray-700 transition px-4 py-2 w-fit">
               <p>
-                <span class="text-gray-600">+</span>
+                <span class="text-gray-300">+</span>
                 Add New Grade
               </p>
             </button>
@@ -55,8 +55,8 @@ export default {
   name: 'Table',
   props: {
     subsectors: {
-      type: Array, // Adjust the type based on the actual data type of subsectors
-      default: () => [] // Provide a default value if needed
+      type: Array,
+      default: () => []
     },
     deleteSubsector: {
       type: Function,
@@ -65,11 +65,10 @@ export default {
   },
   methods: {
     onDeleteSubsector(subsectorId) {
-      // Call deleteSubsector prop function with subsectorId argument
       this.deleteSubsector(subsectorId);
     },
     editSubsector(id) {
-      this.$router.push('/subsector/edit', id);
+      this.$router.push('/sndustrial/edit', id);
     }
   }
 }

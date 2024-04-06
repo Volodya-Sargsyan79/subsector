@@ -1,31 +1,17 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import Industrial from "@/views/Industrial"
-import Office from "@/views/Office"
-import Retail from "@/views/Retail"
-import Residential from "@/views/Residential"
-
+import Subsector from '@/views/Subsector.vue'
+import Edit from '@/views/Edit.vue'
 const routes = [
   {
-    path: '/industrial',
-    name: 'industrial',
-    component: Industrial
+    path: '/sndustrial',
+    name: 'subsector',
+    component: Subsector
   },
   {
-    path: '/office',
-    name: 'office',
-    component: Office
-  },
-  {
-    path: '/retail',
-    name: 'retail',
-    component: Retail
-  },
-  {
-    path: '/residential',
-    name: 'residential',
-    component: Residential
-  },
-
+    path: '/sndustrial/edit',
+    name: 'edit',
+    component: Edit
+  }
 ]
 
 const router = createRouter({
