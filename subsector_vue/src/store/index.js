@@ -3,12 +3,16 @@ import { createStore } from 'vuex';
 
 const store = createStore({
   state: {
+    sector: null,
+    sectorName: '',
     sectorsData: null,
     subsectorsData: null,
+    subSectorsEditData: null,
   },
   getters: {
     getSectorsData: (state) => state.sectorsData,
     getSubsectorsData: (state) => state.subsectorsData,
+    getSectorsEditData: (state) => state.subSectorsEditData,
   },
   mutations: {
     setSectorsData(state, data) {
@@ -20,6 +24,15 @@ const store = createStore({
     setDeleteSubsectors(state, data) {
       state.subsectorsData = data;
     },
+    setEditSubsectorsEdit(state, data) {
+      state.subSectorsEditData = data;
+    },
+    setSectorName(state, data) {
+      state.sectorName = data;
+    },
+    setSector(state, data) {
+      state.sector = data;
+    }
   },
   actions: {
     async fetchSectorsData({ commit }) {
@@ -38,6 +51,14 @@ const store = createStore({
         console.error('Error fetching API data:', error);
       }
     },
+    async fetchEditSubsectors({ commit }, subsectorsID) {
+      try {
+        const response = await axios.put(`/subsectors/${subsectorsID}`);
+        commit('setEditSubsectorsEdit', response.data);
+      } catch (error) {
+        console.error('Error fetching API data:', error);
+      }
+    },
     async fetchDeleteSubsector({ commit }, subsectorsID) {
       try {
         const response = await axios.delete(`/subsectors/${subsectorsID}`);
@@ -46,6 +67,12 @@ const store = createStore({
         console.error('Error fetching API data:', error);
       }
     },
+    fetchSectorName({ commit }, sectorName) {
+      commit('setSectorName', sectorName)
+    },
+    fetchSector({ commit }, sector) {
+      commit('setSector', sector)
+    }
   },
 });
 

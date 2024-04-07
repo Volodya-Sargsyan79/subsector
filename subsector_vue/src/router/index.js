@@ -1,16 +1,16 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Subsector from '@/views/Subsector.vue'
-import Edit from '@/views/Edit.vue'
+import EditSubsector from '@/views/EditSubsector.vue'
 const routes = [
   {
-    path: '/sndustrial',
+    path: '/subsector',
     name: 'subsector',
     component: Subsector
   },
   {
-    path: '/sndustrial/edit',
+    path: '/subsector/edit',
     name: 'edit',
-    component: Edit
+    component: EditSubsector
   }
 ]
 

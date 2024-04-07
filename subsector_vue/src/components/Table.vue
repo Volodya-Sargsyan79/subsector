@@ -27,7 +27,7 @@
           <td class="border-x border-gray-600 py-3 px-3 flex gap-x-3">
             <button 
               class="rounded-md bg-blue-500 text-gray-300 hover:bg-blue-600 transition px-4 py-2 w-fit"
-              @click="editSubsector(subsector.sectorId)">
+              @click="editSubsector(subsector)">
               <span class="text-gray-300"> ✎ </span>
               Edit
             </button>
@@ -67,8 +67,9 @@ export default {
     onDeleteSubsector(subsectorId) {
       this.deleteSubsector(subsectorId);
     },
-    editSubsector(id) {
-      this.$router.push('/sndustrial/edit', id);
+    editSubsector(subsector) {
+      this.$router.push({ path: '/subsector/edit', query: { id: subsector.id } });
+      this.$store.dispatch("fetchSector", subsector)
     }
   }
 }

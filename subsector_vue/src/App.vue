@@ -17,21 +17,23 @@
 <script>
 import { computed } from "vue";
 import { useStore } from 'vuex';
-import Subsector from '@/views/Subsector.vue'
 
 export default {
   name: 'App',
-  components: {
-    Subsector
-  },
   setup() {
     const store = useStore();
     const sectors = computed(() => store.getters.getSectorsData);
     const subsectors = computed(() => store.getters.getSubsectorsData);
+
  
     const getSubsectorsData = (id) => {
       store.dispatch('fetchSubsectorsData', id);
     }
+
+    const editSubsector = (subsectorId) => {
+      store.dispatch('fetchEditSubsectors', subsectorId);
+    }
+    
     
     const deleteSubsector = (subsectorId) => {
       store.dispatch('fetchDeleteSubsector', subsectorId);
@@ -43,6 +45,7 @@ export default {
       sectors,
       subsectors,
       getSubsectorsData,
+      editSubsector,
       deleteSubsector
     };
   },
