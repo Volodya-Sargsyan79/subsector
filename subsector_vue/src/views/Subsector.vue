@@ -4,13 +4,13 @@
             <button
                 v-for="sector in sectors"
                 :key="sector.id" 
-                class="text-white py-4 px-6 hover:bg-neutral-700 focus:z-10 focus:ring-4 focus:ring-blue-500 focus:bg-neutral-700"
+                class="text-white bg-neutral-800 py-4 px-6 border-b-4  hover:bg-neutral-700 focus:bg-neutral-700 focus:border-blue-500"
                 @click="getSubsectorsData(sector.id), $router.push({ path: '/subsector', query: { sector: sector.id} }, pushSectorName(sector.name))">
                 {{ sector.name }}
             </button>
         </nav>
         <section class="bg-neutral-800 p-5">
-            <Table :subsectors="subsectors" ></Table>
+            <Table :subsectors="subsectors"></Table>
         </section>
     </div>
 </template>

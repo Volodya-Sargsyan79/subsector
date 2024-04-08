@@ -6,7 +6,7 @@
           <td></td>
           <td></td>
           <td class="p-3 flex justify-end">
-            <button class="rounded-md bg-gray-600 text-gray-300 hover:bg-gray-700 transition px-4 py-2 w-fit">
+            <button class="rounded-md bg-gray-600 text-gray-300 hover:bg-gray-700 transition px-4 py-2 w-fit" @click="addNewGrade(subsectors)">
               <p>
                 <span class="text-gray-300">+</span>
                 Add New Grade
@@ -75,6 +75,10 @@ export default {
     editSubsector(subsector) {
       this.$router.push({ path: '/subsector/edit', query: { id: subsector.id }  });
       this.$store.dispatch("fetchSector", subsector)
+    },
+    addNewGrade(subsector){
+      console.log(subsectors)
+      // this.$router.push({ path: '/subsector/add-new-grade', query: { id: subsector.id } });
     }
   }
 }
