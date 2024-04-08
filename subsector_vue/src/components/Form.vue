@@ -175,7 +175,9 @@
                 >
                 Submit 
             </button>
-            <button class="rounded-md bg-gray-300 text-gray-800 hover:bg-gray-400 transition px-4 py-2"> 
+            <button class="rounded-md bg-gray-300 text-gray-800 hover:bg-gray-400 transition px-4 py-2"
+                @click="$router.go(-1)"    
+            > 
                 Cancel 
             </button>
         </div>
@@ -200,8 +202,9 @@ const value = ref(10)
         setup() {
             const store = useStore()
             const sector = computed(() => store.state.sector)
+
             return {
-                sector
+                sector,
             }
         },
         methods: {

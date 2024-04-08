@@ -10,13 +10,15 @@
             </button>
         </nav>
         <section class="bg-neutral-800 p-5">
-            <Table :subsectors="subsectors" :deleteSubsector="deleteSubsector" ></Table>
+            <Table :subsectors="subsectors" ></Table>
         </section>
     </div>
 </template>
 
 <script>
     import Table from '@/components/Table.vue';
+    import { computed } from 'vue'
+    import { useStore } from 'vuex'
 
     export default {
         name: 'Subsector',
@@ -24,23 +26,27 @@
             Table
         },
         props: {
-            sectors: {
-                type: Array,
-                default: () => []
-            },
             subsectors: {
                 type: Array, 
                 default: () => []
-            },
-            deleteSubsector: {
-                type: Function,
-                required: true 
-            },
-            getSubsectorsData: {
-                type: Function,
-                required: true 
+            }
+        },
+        setup() {
+            const store = useStore()
+            const sectors = computed(() => store.state.sectorsData)
+            const subsectors = computed(() => store.getters.getSubsectorsData);
+
+            const getSubsectorsData = (id) => {
+                store.dispatch('fetchSubsectorsData', id);
             }
 
+            store.dispatch('fetchSectorsData');
+            
+            return {
+                sectors,
+                subsectors,
+                getSubsectorsData
+            }
         },
         methods: {
             pushSectorName(sectorName) {

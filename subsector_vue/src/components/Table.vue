@@ -33,7 +33,7 @@
             </button>
             <button 
               class="rounded-md bg-gray-600 text-gray-300 hover:bg-gray-700 transition px-4 py-2 w-fit"
-              @click="onDeleteSubsector(subsector.id)">
+              @click="deleteSubsector(subsector.id)">
               <span class="text-gray-500">✖</span>
               Delete 
             </button>
@@ -51,24 +51,29 @@
 </template>
 
 <script>
+import { useStore } from 'vuex';
 export default {
   name: 'Table',
   props: {
     subsectors: {
       type: Array,
       default: () => []
-    },
-    deleteSubsector: {
-      type: Function,
-      required: true
     }
   },
+  setup() {
+    const store = useStore();
+
+    const deleteSubsector = (subsectorId) => {
+      store.dispatch('fetchDeleteSubsector', subsectorId);
+    }
+
+    return {
+      deleteSubsector
+    };
+  },
   methods: {
-    onDeleteSubsector(subsectorId) {
-      this.deleteSubsector(subsectorId);
-    },
     editSubsector(subsector) {
-      this.$router.push({ path: '/subsector/edit', query: { id: subsector.id } });
+      this.$router.push({ path: '/subsector/edit', query: { id: subsector.id }  });
       this.$store.dispatch("fetchSector", subsector)
     }
   }
